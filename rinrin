@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise Birthday</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="countdown">
+        <h1>Countdown to 12 AM!</h1>
+        <p id="timer"></p>
+    </div>
+
+    <div class="card" id="card" style="display: none;">
+        <img src="your-gif-card.gif" alt="Happy Birthday Rinbin!">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    text-align: center;
+}
+
+.countdown {
+    font-size: 2em;
+}
+
+.card {
+    margin-top: 20px;
+}
+
+img {
+    width: 100%;
+    max-width: 500px;
+}
+function updateCountdown() {
+    const now = new Date();
+    const targetTime = new Date();
+    targetTime.setHours(24, 0, 0, 0);  // Set the target time to 12:00 AM of the next day
+
+    const timeRemaining = targetTime - now;
+
+    // If it's past 12 AM, show the card immediately
+    if (timeRemaining <= 0) {
+        document.getElementById("card").style.display = "block";
+        document.querySelector(".countdown").style.display = "none";
+        return;
+    }
+
+    // Calculate hours, minutes, and seconds
+    const hours = Math.floor(timeRemaining / (1000 * 60 * 60));
+    const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+    // Display the countdown
+    document.getElementById("timer").innerText = `${hours}h ${minutes}m ${seconds}s`;
+
+    // Update the countdown every second
+    setTimeout(updateCountdown, 1000);
+}
+
+// Initialize the countdown
+updateCountdown();
